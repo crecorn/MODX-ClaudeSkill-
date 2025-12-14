@@ -397,14 +397,12 @@ Advanced image cropping TV with visual editor. Requires pThumb as cropping engin
 
 1. Create TV in Manager
 2. Input Type: `imageplus`
-3. Output Type: `default` (recommended for snippet processing)
+3. Output Type: `Image+` (for direct URL output) or `default` (for snippet processing)
 4. Configure Input Options:
    - Target Width/Height: Minimum dimensions
    - Target Ratio: Force aspect ratio (e.g., 16:9)
    - Allow Alt Tag: Enable alt text field
    - Allow Caption: Enable caption field
-
-**Important**: Always set Output Type to `default` when using the ImagePlus snippet to render images. Setting it to `Image+` can cause 500 errors due to double-processing.
 
 ### TV Input Options (JSON in MIGX)
 ```json
@@ -421,27 +419,17 @@ Advanced image cropping TV with visual editor. Requires pThumb as cropping engin
 
 ### ImagePlus Snippet
 
-#### Recommended Usage (using &value)
-The most reliable approach is to pass the raw TV value directly using `&value`:
-```
-[[ImagePlus? &value=`[[*heroImage]]` &options=`w=800&h=450&zc=1`]]
-```
-
-This method explicitly passes the TV's JSON data to the snippet and avoids issues with TV output type configurations.
-
-#### Alternative Usage (using &tvname)
+#### Basic Usage (returns URL)
 ```
 [[ImagePlus? &tvname=`heroImage` &options=`w=800&h=450&zc=1`]]
 ```
 
-**Note**: The `&tvname` approach can cause 500 errors in some configurations. If you encounter issues, switch to the `&value` method.
-
 #### Snippet Properties
 | Property | Description |
 |----------|-------------|
-| `&value` | Raw TV value - **recommended method** |
-| `&tvname` | Name of Image+ TV (alternative, may cause issues) |
-| `&docid` | Resource ID (required in pdoResources tpl when using &tvname) |
+| `&tvname` | Name of Image+ TV |
+| `&docid` | Resource ID (required in pdoResources tpl) |
+| `&value` | Raw JSON value (for MIGX fields) |
 | `&options` | pThumb options: w, h, zc, q, etc. |
 | `&type` | Output type: `url` (default), `tpl` |
 | `&tpl` | Chunk name when type=tpl |
@@ -458,18 +446,16 @@ f=webp       Output format
 
 ### Usage Patterns
 
-#### Direct in Template (Recommended)
-```html
-[[*heroImage:notempty=`
-<img src="[[ImagePlus? &value=`[[*heroImage]]` &options=`w=1200&h=675&zc=1&q=85`]]" 
+#### Direct in Template
+```
+<img src="[[ImagePlus? &tvname=`heroImage` &options=`w=1200&q=85`]]" 
      alt="[[*pagetitle]]">
-`]]
 ```
 
 #### With Output Chunk
 ```
 [[ImagePlus?
-  &value=`[[*heroImage]]`
+  &tvname=`heroImage`
   &type=`tpl`
   &tpl=`tplResponsiveImage`
   &options=`w=800`
@@ -488,19 +474,17 @@ tplResponsiveImage chunk:
 ```
 
 #### In pdoResources Template Chunk
-When inside a pdoResources tpl chunk, use placeholder syntax (`[[+]]`) instead of resource field syntax (`[[*]]`):
-```html
-[[+heroImage:notempty=`
-<img src="[[ImagePlus? &value=`[[+heroImage]]` &options=`w=400&h=225&zc=1`]]" 
-     alt="[[+pagetitle]]"
-     loading="lazy">
-`]]
+**Critical**: Must include `&docid=`[[+id]]`` to get correct resource's image:
+```
+[[ImagePlus?
+  &tvname=`heroImage`
+  &docid=`[[+id]]`
+  &options=`w=400&h=225&zc=1`
+]]
 ```
 
-**Note**: The TV must be included via `&includeTVs` and `&processTVs=`1`` in the pdoResources call, with `&tvPrefix=``` to avoid prefix issues.
-
-#### In MIGX
-When Image+ is used inside MIGX, use `&value` with the MIGX placeholder:
+#### In MIGX (using &value)
+When Image+ is used inside MIGX, use `&value` instead of `&tvname`:
 ```
 [[ImagePlus?
   &value=`[[+image]]`
@@ -554,40 +538,14 @@ Set column renderer to `ImagePlus.MIGX_Renderer` to show thumbnails in grid.
 ### Common Aspect Ratios
 | Use Case | Ratio | Example Size |
 |----------|-------|--------------|
-| Hero/Banner | 16:9 | 1920×1080 |
-| Blog Featured | 16:9 | 1200×675 |
-| Square/Avatar | 1:1 | 400×400 |
-| Portrait | 3:4 | 600×800 |
-| Landscape | 4:3 | 800×600 |
-| Cinematic | 21:9 | 2560×1080 |
+| Hero/Banner | 16:9 | 1920Ã—1080 |
+| Blog Featured | 16:9 | 1200Ã—675 |
+| Square/Avatar | 1:1 | 400Ã—400 |
+| Portrait | 3:4 | 600Ã—800 |
+| Landscape | 4:3 | 800Ã—600 |
+| Cinematic | 21:9 | 2560Ã—1080 |
 
-### Troubleshooting
-
-| Issue | Solution |
-|-------|----------|
-| 500 error with ImagePlus | Switch from `&tvname` to `&value` method |
-| 500 error persists | Verify TV Output Type is set to `default`, not `Image+` |
-| Image not rendering | Check pThumb is installed |
-| Crop not applied | Ensure Input Type is `imageplus` (not just `image`) |
-| Wrong image in listing | In pdoResources tpl, use `[[+tvName]]` not `[[*tvName]]` |
-| Blank output | Check TV is assigned to template, verify TV name spelling |
-
-### Quick Reference
-
-**In templates (direct resource access):**
-```
-[[ImagePlus? &value=`[[*featuredImage]]` &options=`w=800&h=450&zc=1`]]
-```
-
-**In pdoResources tpl chunks (placeholder context):**
-```
-[[ImagePlus? &value=`[[+featuredImage]]` &options=`w=400&h=225&zc=1`]]
-```
-
-**In MIGX tpl chunks:**
-```
-[[ImagePlus? &value=`[[+image]]` &options=`w=600&q=85`]]
-```
+---
 
 ## ClientConfig
 
