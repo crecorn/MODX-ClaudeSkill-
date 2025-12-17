@@ -1,6 +1,6 @@
 ---
 name: modx-cms
-description: Expert-level MODX Revolution CMS development, templating, and content management. Use this skill when building MODX websites, creating templates/chunks/snippets, configuring extras (pdoTools, MIGX, ClientConfig, SEO Suite, Image+, FormIt, Collections, Tagger), writing MODX tag syntax, implementing schema markup, or troubleshooting MODX issues. Triggers include "MODX", "pdoResources", "pdoMenu", "MIGX", "ClientConfig", "FormIt", "Image+", "ImagePlus", "Collections", "Tagger", "chunks", "snippets", "TVs", "template variables", or any MODX CMS development task.
+description: Expert-level MODX Revolution CMS development, templating, and content management. Use this skill when building MODX websites, creating templates/chunks/snippets, configuring extras (pdoTools, MIGX, ClientConfig, SEO Suite, Image+, FormIt), writing MODX tag syntax, implementing schema markup, or troubleshooting MODX issues. Triggers include "MODX", "pdoResources", "pdoMenu", "MIGX", "ClientConfig", "FormIt", "Image+", "ImagePlus", "chunks", "snippets", "TVs", "template variables", or any MODX CMS development task.
 ---
 
 # MODX CMS Development
@@ -17,7 +17,6 @@ Expert guidance for MODX Revolution websites.
 [[++settingKey]]          System/Context setting
 [[~resourceId]]           Link to resource
 [[+placeholder]]          Placeholder from snippet/chunk
-[[- comment ]]            Comment (not processed or output)
 ```
 
 ### Output Modifiers
@@ -41,7 +40,6 @@ Expert guidance for MODX Revolution websites.
 3. **TV names must be single words**: `heroImage` not `hero_image` or `hero-image`
 4. **Uncached (`!`) only when dynamic**: session data, user input, time-based
 5. **Nested tags resolve inner-first**: `[[Snippet? &id=`[[*parent]]`]]`
-6. **HTML comments don't stop processing**: `<!-- [[!Snippet]] -->` still executes! Use `[[-` or break brackets to truly disable
 
 ## Core Extras Stack
 
@@ -54,8 +52,6 @@ Expert guidance for MODX Revolution websites.
 | Image+ | Visual image cropping with aspect ratio control |
 | FormIt | Form processing with validation and hooks |
 | modAI | AI-powered content generation |
-| Collections | Grid-based child resource management (blogs, products, listings) |
-| Tagger | Tags and taxonomy system with groups and filtering |
 
 ## Common Patterns
 
@@ -138,11 +134,11 @@ Keep templates minimal; decompose into cached chunks:
 For detailed information, read the appropriate reference:
 
 - **[references/naming-conventions.md](references/naming-conventions.md)**: Element naming standards (templates, chunks, TVs, settings)
-- **[references/syntax.md](references/syntax.md)**: Complete tag syntax, modifiers, caching rules, commenting
-- **[references/extras.md](references/extras.md)**: pdoTools, MIGX, FormIt, Image+, Collections, Tagger patterns
+- **[references/syntax.md](references/syntax.md)**: Complete tag syntax, modifiers, caching rules
+- **[references/extras.md](references/extras.md)**: pdoTools, MIGX, FormIt, Image+ patterns
 - **[references/clientconfig.md](references/clientconfig.md)**: Settings structure and groups
 - **[references/schema.md](references/schema.md)**: JSON-LD structured data implementation
-- **[references/modxtransfer.md](references/modxtransfer.md)**: Import/export snippets, JSON templates
+- **[references/ModxTransfer.md](references/ModxTransfer.md)**: ModxTransfer snippet for importing/exporting elements and resources
 
 ## Caching Strategy
 
@@ -171,4 +167,3 @@ For detailed information, read the appropriate reference:
 | pdoMenu empty | Check `&parents`, resource `hidemenu` setting |
 | Image+ not working | Ensure pThumb installed, TV output type set to Image+ |
 | Snippet error | Check Error Log: Manager â†’ Reports â†’ Error Log |
-| "Commented" code still runs | HTML comments do not stop MODX processing; use `[[-` or remove brackets |

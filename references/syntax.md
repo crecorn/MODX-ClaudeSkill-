@@ -9,7 +9,6 @@ Complete syntax patterns for MODX Revolution templating.
 4. [Common Field Names](#common-field-names)
 5. [Conditional Patterns](#conditional-patterns)
 6. [Binding Notation](#binding-notation)
-7. [Commenting Code](#commenting-code)
 
 ## Tag Types
 
@@ -292,64 +291,6 @@ TV Input:   @SELECT `pagetitle`, `id` FROM `modx_site_content` WHERE `parent` = 
 File-based: @FILE assets/chunks/footer.html
 ```
 
-## Commenting Code
-
-### MODX Comment Tag `[[-`
-MODX has a native comment tag that prevents processing:
-```
-[[- This is a comment - not processed or output ]]
-
-[[- 
-  Multi-line comments work too.
-  Nothing in here will be processed.
-]]
-```
-
-The parser returns empty string immediately upon encountering `-` after `[[`, before even collecting nested tags.
-
-### ⚠️ Critical: HTML Comments Do NOT Stop Processing
-
-**MODX tags inside HTML comments are still executed:**
-```html
-❌ WRONG - Snippet still runs, wastes processing:
-<!-- [[!pdoMenu? &parents=`0` &level=`3`]] -->
-
-❌ WRONG - Chunk still processes:
-<!-- [[$cmp.ExpensiveComponent]] -->
-```
-
-The HTML comment only hides the *output* from the browser - MODX still parses and executes the tag server-side. This wastes server resources and can cause errors.
-
-### Correct Ways to Comment Out MODX Tags
-
-**Method 1: Use MODX comment syntax**
-```
-[[- [[$cmp.Header]] ]]
-[[- [[!FormIt? &hooks=`email`]] ]]
-```
-
-**Method 2: Break the brackets (remove opening brackets)**
-```html
-<!-- $cmp.Header]] -->
-<!-- !pdoMenu? &parents=`0`]] -->
-```
-
-**Method 3: Rename/prefix the element call**
-```
-[[$_disabled_cmp.Header]]
-[[_commentedSnippet]]
-```
-(MODX outputs nothing for non-existent elements)
-
-### Best Practice Summary
-
-| Scenario | Solution |
-|----------|----------|
-| Temporary disable tag | Use `[[-` comment wrapper |
-| Debug/testing | Break brackets or use `[[-` |
-| HTML comment with notes | Remove MODX brackets inside |
-| Production cleanup | Delete commented code entirely |
-
 ## Snippet Parameters
 
 ### Parameter Syntax
@@ -397,10 +338,3 @@ Named parameter groups attached to elements:
 3. Test tags individually before nesting
 4. Clear cache between changes
 5. Use browser dev tools for output inspection
-
-### HTML Comments Warning
-**Critical**: Wrapping MODX tags in HTML comments does NOT prevent execution:
-```
-<!-- [[!pdoMenu? &parents=`0`]] -->   STILL PROCESSES!
-```
-The snippet/chunk runs server-side; HTML comment only hides output. Use MODX comment syntax `[[-` or break the brackets instead. See [Commenting Code](#commenting-code) section.

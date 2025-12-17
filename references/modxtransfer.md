@@ -166,7 +166,7 @@ Export MODX resources to JSON with optional delete-after-export functionality.
 ]]
 ```
 
-Ã¢Å¡ Ã¯Â¸Â **Warning**: Delete operations are permanent. Always verify export file before using `&delete`.
+âš ï¸ **Warning**: Delete operations are permanent. Always verify export file before using `&delete`.
 
 ---
 
