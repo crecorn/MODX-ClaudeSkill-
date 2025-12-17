@@ -221,6 +221,6 @@ Anytown, Otherville, Newplace, Springfield
 ## Import/Export
 
 ClientConfig settings can be exported/imported via XML:
-- Manager â†’ Extras â†’ ClientConfig â†’ Import/Export
+- Manager, Extras, ClientConfig, Import/Export
 - Settings and Groups exported separately
 - Use for deploying consistent configurations across sites
