@@ -113,7 +113,7 @@ In pdoResources tpl (requires `&docid`):
 
 ## File Organization
 
-### Templates â†’ Chunks Pattern
+### Templates Chunks Pattern
 Keep templates minimal; decompose into cached chunks:
 
 ```
@@ -161,7 +161,7 @@ For detailed information, read the appropriate reference:
 
 | Issue | Solution |
 |-------|----------|
-| Changes not showing | Clear cache: Site â†’ Clear Cache |
+| Changes not showing | Clear cache: Site Clear Cache |
 | Blank output | Check tag syntax, especially backticks and brackets |
 | TV not rendering | Verify TV assigned to template, check name (single word) |
 | pdoMenu empty | Check `&parents`, resource `hidemenu` setting |
