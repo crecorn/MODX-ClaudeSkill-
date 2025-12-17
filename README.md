@@ -15,41 +15,21 @@ When installed, Claude gains deep expertise in:
 
 ## 📦 Installation
 
-### For Claude.ai Projects
+### For Claude.ai Skill
+1. Download SKILL.MD and references folder
+2. Create a zip file with SKILL.MD and references folder
+3. Go to your settings at Claude.ai | Capabilities
+4. Under Skills +add
+5. Name modx-cms
+6. Create a project or start a new chat and reference modx-cms
 
-1. Create a new Project in Claude.ai
-2. Upload all `.md` files from this repository to the Project's knowledge base
-3. Start chatting with MODX expertise!
+I use Opus 4.5 with extended thinking.
 
-### For Claude Code
-
-**User-level installation (available in all projects):**
-```bash
-git clone https://github.com/YOUR_USERNAME/modx-cms-skill.git ~/.claude/skills/modx-cms
-```
-
-**Project-level installation (for a specific repo):**
-```bash
-cd your-project
-mkdir -p .claude/skills
-git clone https://github.com/YOUR_USERNAME/modx-cms-skill.git .claude/skills/modx-cms
-```
-
-### Manual Installation
-
-1. Download or clone this repository
-2. Copy the contents to your Claude skills directory:
-   - User skills: `~/.claude/skills/modx-cms/`
-   - Project skills: `your-repo/.claude/skills/modx-cms/`
-
-## 📁 File Structure
+## 📁 Zip Folder File Structure
 
 ```
 modx-cms-skill/
 ├── SKILL.md                 # Main skill file (quick reference + triggers)
-├── README.md                # This file
-├── LICENSE                  # MIT License
-├── CHANGELOG.md             # Version history
 └── references/
     ├── naming-conventions.md   # Element naming standards
     ├── syntax.md               # Complete tag syntax reference
@@ -59,23 +39,46 @@ modx-cms-skill/
     └── modxtransfer.md         # Import/export documentation
 ```
 
+### For Claude.ai Projects
+
+1. Create a new Project in Claude.ai
+2. Upload SKILL.MD and all `.md` files from the references folder to the Project's Files
+3. Start chatting with MODX expertise!
+
+### For Claude Code
+
+Claude wrote these instructions. I have not used it in Claude Code. 
+
+** User-level installation (available in all projects):**
+```bash
+git clone https://github.com/YOUR_USERNAME/modx-cms-skill.git ~/.claude/skills/modx-cms
+```
+
+** Project-level installation (for a specific repo):**
+```bash
+cd your-project
+mkdir -p .claude/skills
+git clone https://github.com/YOUR_USERNAME/modx-cms-skill.git .claude/skills/modx-cms
+```
+
 ## 🚀 Usage Examples
 
 Once installed, Claude will automatically use this skill when you ask about MODX. Try prompts like:
 
 ```
-"Create a pdoResources call to list blog posts with hero images"
+"Use Modx-cms skill to create a head, header with nav with a dropdown, and a footer chunk."
 
-"Set up a MIGX TV for FAQ items with question and answer fields"
+"Create templates for the homepage, interior, contact, blog container, blog article, and utility pages."
 
-"Write the ClientConfig settings for a plumbing company"
+"Research X business." "Create the ClientConfig settings XML file using researched information."
 
-"Create a Collections view for managing blog posts"
+"Generate chunks of all the Local Business schema markup using ClientConfig values."
 
-"Set up Tagger groups for blog categories and tags"
+"Create the JSON file of all chunks and template for ModxTransfer import." 
 
-"Generate LocalBusiness schema markup using ClientConfig values"
 ```
+
+ModxTransfer is now a standalone extra. See my repositories. I also submitted it to MODX Extras. 
 
 ## 📋 Quick Reference
 
